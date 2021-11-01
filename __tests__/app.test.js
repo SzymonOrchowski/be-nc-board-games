@@ -26,5 +26,20 @@ describe('All tests: ', () => {
                 expect(err).toBe(undefined)
             }) 
         })
+        test('Check if seed.sql file creates table reviews, and it has columns: review_id, title, review_body, designer, review_img_url, votes, category, owner, created_at', () => {
+            return db.query('SELECT * FROM reviews').then(data => {
+                expect(data.fields[0].name).toBe('review_id');
+                expect(data.fields[1].name).toBe('title')
+                expect(data.fields[2].name).toBe('review_body')
+                expect(data.fields[3].name).toBe('designer')
+                expect(data.fields[4].name).toBe('review_img_url')
+                expect(data.fields[5].name).toBe('votes')
+                expect(data.fields[6].name).toBe('category')
+                expect(data.fields[7].name).toBe('owner')
+                expect(data.fields[8].name).toBe('created_at')
+            }).catch(err => {
+                expect(err).toBe(undefined)
+            }) 
+        })
     })
 })

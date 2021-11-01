@@ -4,7 +4,10 @@ const seed = (data) => {
   const { categoryData, commentData, reviewData, userData } = data;
   // 1. create tables
   return db
-    .query('DROP TABLE IF EXISTS categories;')
+    .query('DROP TABLE IF EXISTS reviews;')
+    .then(()=>{
+      return db.query('DROP TABLE IF EXISTS categories;')
+    })
     .then(()=>{
       return db.query('DROP TABLE IF EXISTS users;')
     })
@@ -19,6 +22,19 @@ const seed = (data) => {
         username VARCHAR NOT NULL UNIQUE PRIMARY KEY,
         avatar_url VARCHAR NOT NULL,
         name VARCHAR NOT NULL
+      );`)
+    })
+    .then(()=>{
+      return db.query(`CREATE TABLE reviews (
+        review_id SERIAL PRIMARY KEY,
+        title VARCHAR NOT NULL,
+        review_body TEXT NOT NULL,
+        designer VARCHAR NOT NULL,
+        review_img_url VARCHAR DEFAULT 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg',
+        votes VARCHAR DEFAULT 0,
+        category VARCHAR REFERENCES categories(slug),
+        owner VARCHAR REFERENCES users(username),
+        created_at TIMESTAMP
       );`)
     })
   // 2. insert data
