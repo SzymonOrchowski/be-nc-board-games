@@ -107,9 +107,14 @@ describe('All tests: ', () => {
             })
         })
     })
-    // describe('App.js tests: ', () => {
-    //     test('status:404, responds with error message', () => {
-
-    //     })
-    // })
+    describe.only('App.js tests: ', () => {
+        test('status:404, responds with error message', () => {
+            return request(app)
+            .get('/api/wrong-path')
+            .expect(404)
+            .then(({body})=> {
+                expect(body.msg).toBe("path not found")
+            })
+        })
+    })
 })
