@@ -55,7 +55,7 @@ describe('All tests: ', () => {
         })
 
         //insert data tests
-        
+
         test('Check if data is inserted into categories table', ()=>{
             return db.query('SELECT * FROM categories')
             .then(({rows}) => {
@@ -112,7 +112,7 @@ describe('All tests: ', () => {
 
     // App.js endpoints tests
 
-    describe.only('App.js tests: ', () => {
+    describe('App.js tests: ', () => {
         test('status:404, responds with error message', () => {
             return request(app)
             .get('/api/wrong-path')
