@@ -1,4 +1,5 @@
 const db = require('../')
+const format = require('pg-format')
 
 const seed = (data) => {
   const { categoryData, commentData, reviewData, userData } = data;
@@ -50,7 +51,15 @@ const seed = (data) => {
         body TEXT NOT NULL
       );`)
     })
-  // 2. insert data
+     // 2. insert data
+    .then(()=>{
+      // const formatedData = format(
+      return db.query(
+        format(
+        'INSERT INTO categories (slug, description) VALUES %L;',
+        categoryData.map(category => {return [category.slug, category.description]}))
+      )
+    })
 };
 
 module.exports = { seed };

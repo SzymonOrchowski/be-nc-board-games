@@ -53,5 +53,16 @@ describe('All tests: ', () => {
                 expect(err).toBe(undefined);
             }) 
         })
+        //insert data tests
+        test.only('Check if data is inserted into categories table', ()=>{
+            return db.query('SELECT * FROM categories')
+            .then(({rows}) => {
+                expect(rows.length).toBeGreaterThan(0);
+                rows.forEach(category => {
+                    expect(category).toHaveProperty('slug');
+                    expect(category).toHaveProperty('description');
+                })
+            })
+        })
     })
 })
