@@ -116,5 +116,20 @@ describe('All tests: ', () => {
                 expect(body.msg).toBe("path not found")
             })
         })
+        describe('GET /api/categories', () => {
+            test('status:200, responds with an array of categories', () => {
+                return request(app)
+                .get('/api/categories')
+                .expect(200)
+                .then(({body}) => {
+                    body.categories.forEach(
+                        expect.objectContaining({
+                            slug: expect.any(String),
+                            description: expect.any(String)
+                        })
+                    )
+                })
+            })
+        })
     })
 })
