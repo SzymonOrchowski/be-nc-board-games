@@ -53,11 +53,31 @@ const seed = (data) => {
     })
      // 2. insert data
     .then(()=>{
-      // const formatedData = format(
       return db.query(
         format(
         'INSERT INTO categories (slug, description) VALUES %L;',
         categoryData.map(category => {return [category.slug, category.description]}))
+      )
+    })
+    .then(()=>{
+      return db.query(
+        format(
+        'INSERT INTO users (username, avatar_url, name) VALUES %L;',
+        userData.map(user => {return [user.username, user.avatar_url, user.name]}))
+      )
+    })
+    .then(()=>{
+      return db.query(
+        format(
+        'INSERT INTO reviews (title, review_body, designer, review_img_url, votes, category, owner, created_at) VALUES %L;',
+        reviewData.map(review => {return [review.title, review.review_body, review.designer, review.review_img_url, review.votes, review.category, review.owner, review.created_at]}))
+      )
+    })
+    .then(()=>{
+      return db.query(
+        format(
+        'INSERT INTO comments (author, review_id, votes, created_at, body) VALUES %L;',
+        commentData.map(comment => {return [comment.author, comment.review_id, comment.votes, comment.created_at, comment.body]}))
       )
     })
 };

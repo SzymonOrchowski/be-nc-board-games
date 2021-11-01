@@ -54,7 +54,7 @@ describe('All tests: ', () => {
             }) 
         })
         //insert data tests
-        test.only('Check if data is inserted into categories table', ()=>{
+        test('Check if data is inserted into categories table', ()=>{
             return db.query('SELECT * FROM categories')
             .then(({rows}) => {
                 expect(rows.length).toBeGreaterThan(0);
@@ -64,5 +64,52 @@ describe('All tests: ', () => {
                 })
             })
         })
+        test('Check if data is inserted into users table', ()=>{
+            return db.query('SELECT * FROM users')
+            .then(({rows}) => {
+                expect(rows.length).toBeGreaterThan(0);
+                rows.forEach(category => {
+                    expect(category).toHaveProperty('username');
+                    expect(category).toHaveProperty('avatar_url');
+                    expect(category).toHaveProperty('name');
+                })
+            })
+        })
+        test('Check if data is inserted into reviews table', ()=>{
+            return db.query('SELECT * FROM reviews')
+            .then(({rows}) => {
+                expect(rows.length).toBeGreaterThan(0);
+                rows.forEach(category => {
+                    expect(category).toHaveProperty('review_id');
+                    expect(category).toHaveProperty('title');
+                    expect(category).toHaveProperty('review_body');
+                    expect(category).toHaveProperty('designer');
+                    expect(category).toHaveProperty('review_img_url');
+                    expect(category).toHaveProperty('votes');
+                    expect(category).toHaveProperty('category');
+                    expect(category).toHaveProperty('owner');
+                    expect(category).toHaveProperty('created_at');
+                })
+            })
+        })
+        test('Check if data is inserted into comments table', ()=>{
+            return db.query('SELECT * FROM comments')
+            .then(({rows}) => {
+                expect(rows.length).toBeGreaterThan(0);
+                rows.forEach(category => {
+                    expect(category).toHaveProperty('comment_id');
+                    expect(category).toHaveProperty('author');
+                    expect(category).toHaveProperty('review_id');
+                    expect(category).toHaveProperty('votes');
+                    expect(category).toHaveProperty('created_at');
+                    expect(category).toHaveProperty('body');
+                })
+            })
+        })
     })
+    // describe('App.js tests: ', () => {
+    //     test('status:404, responds with error message', () => {
+
+    //     })
+    // })
 })
