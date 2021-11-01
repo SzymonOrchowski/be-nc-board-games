@@ -122,12 +122,14 @@ describe('All tests: ', () => {
                 .get('/api/categories')
                 .expect(200)
                 .then(({body}) => {
-                    body.categories.forEach(
-                        expect.objectContaining({
-                            slug: expect.any(String),
-                            description: expect.any(String)
-                        })
-                    )
+                    body.categories.forEach((category) => {
+                        expect(category).toEqual(
+                            expect.objectContaining({
+                            slug : expect.any(String),
+                            description : expect.any(String)
+                        }))
+                        
+                    })   
                 })
             })
         })
