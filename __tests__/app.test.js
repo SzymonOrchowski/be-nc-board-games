@@ -53,7 +53,9 @@ describe('All tests: ', () => {
                 expect(err).toBe(undefined);
             }) 
         })
+
         //insert data tests
+        
         test('Check if data is inserted into categories table', ()=>{
             return db.query('SELECT * FROM categories')
             .then(({rows}) => {
@@ -107,6 +109,9 @@ describe('All tests: ', () => {
             })
         })
     })
+
+    // App.js endpoints tests
+
     describe.only('App.js tests: ', () => {
         test('status:404, responds with error message', () => {
             return request(app)
@@ -149,8 +154,9 @@ describe('All tests: ', () => {
                             votes: 5,
                             category: 'dexterity',
                             owner: 'philippaclaire9',
-                            created_at: '2021-01-18T10:01:41.251Z'
-                          }
+                            created_at: '2021-01-18T10:01:41.251Z',
+                            comment_count: 3
+                        }
                     )
                 })
             })
