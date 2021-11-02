@@ -168,6 +168,14 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe('Review of that id doesn\'t exist.')
                 })
             })
+            test('status:404, responds with an error message if review_id doesn\'t exist', () => {
+                return request(app)
+                .get('/api/reviews/WrongPathType')
+                .expect(404)
+                .then(({body}) => {
+                    expect(body.msg).toBe('path not found')
+                })
+            })
         })
     })
 })
