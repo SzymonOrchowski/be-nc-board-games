@@ -160,7 +160,7 @@ describe('All tests: ', () => {
                     )
                 })
             })
-            test('status:404, responds with an error message if review_id doesn\'t exist', () => {
+            test('status:404, responds with an error message if review_id is in proper type but doesn\'t exist in database', () => {
                 return request(app)
                 .get('/api/reviews/9999')
                 .expect(404)
@@ -168,12 +168,45 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe('Review of that id doesn\'t exist.')
                 })
             })
-            test('status:404, responds with an error message if review_id doesn\'t exist', () => {
+            test('status:404, responds with an error message if review_id is wrong type', () => {
                 return request(app)
                 .get('/api/reviews/WrongPathType')
                 .expect(404)
                 .then(({body}) => {
                     expect(body.msg).toBe('path not found')
+                })
+            })
+        })
+        describe('PATCH /api/reviews/:review_id', () => {
+            test('status:200, responds with a object of updated review', () => {
+                return request(app)
+                .patch('/api/reviews/2')
+                .send({ inc_votes: 22 })
+                .expect(200)
+                .then(({body}) => {
+                    expect(body.review).toMatchObject(
+                        {
+                            review_id: expect.any(Number),
+                            title: expect.any(String),
+                            review_body: expect.any(String),
+                            designer: expect.any(String),
+                            review_img_url: expect.any(String),
+                            votes: expect.any(Number),
+                            category: expect.any(String),
+                            owner: expect.any(String),
+                            created_at: expect.any(String),
+                        }
+                    )
+                    expect(body.review.votes).toBeGreaterThanOrEqual(22);
+                })
+            })
+            test('status:400, responds with message "Incorrect type of data", when passed wrong type of data', () => {
+                return request(app)
+                .patch('/api/reviews/2')
+                .send({ votes: 22 })
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Incorrect type of data')
                 })
             })
         })
