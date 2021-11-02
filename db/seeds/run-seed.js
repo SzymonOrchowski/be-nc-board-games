@@ -1,5 +1,5 @@
 const devData = require('../data/dev-data/index.js');
-const seed = require('./seed.js');
+const {seed} = require('./seed.js');
 const db = require('../');
 
 const runSeed = () => {

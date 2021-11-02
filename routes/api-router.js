@@ -2,7 +2,7 @@ const apiRouter = require('express').Router();
 const { getCategories } = require('../controllers/categories.controllers')
 const { getReviewById } = require('../controllers/reviews.controllers')
 
-apiRouter.get('/categories', getCategories)
-apiRouter.get('/reviews/:review_id', getReviewById)
+apiRouter.route('/categories').get(getCategories)
+apiRouter.route('/reviews/:review_id').get(getReviewById)
 
 module.exports = apiRouter;

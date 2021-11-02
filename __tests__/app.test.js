@@ -146,18 +146,26 @@ describe('All tests: ', () => {
                 .then(({body}) => {
                     expect(body.review).toMatchObject(
                         {
-                            review_id: 2,
-                            title: 'Jenga',
-                            review_body: 'Fiddly fun for all the family',
-                            designer: 'Leslie Scott',
-                            review_img_url: 'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
-                            votes: 5,
-                            category: 'dexterity',
-                            owner: 'philippaclaire9',
-                            created_at: '2021-01-18T10:01:41.251Z',
-                            comment_count: 3
+                            review_id: expect.any(Number),
+                            title: expect.any(String),
+                            review_body: expect.any(String),
+                            designer: expect.any(String),
+                            review_img_url: expect.any(String),
+                            votes: expect.any(Number),
+                            category: expect.any(String),
+                            owner: expect.any(String),
+                            created_at: expect.any(String),
+                            comment_count: expect.any(Number)
                         }
                     )
+                })
+            })
+            test('status:404, responds with an error message if review_id doesn\'t exist', () => {
+                return request(app)
+                .get('/api/reviews/9999')
+                .expect(404)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Review of that id doesn\'t exist.')
                 })
             })
         })
