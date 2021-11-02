@@ -1,5 +1,6 @@
 const express = require("express");
 const apiRouter = require("./routes/api-router")
+const { handleCustomErrors, handle500Errors } = require('./controllers/errors.controllers')
 
 const app = express();
 
@@ -10,8 +11,7 @@ app.use('/api', apiRouter);
 app.all('/*', (req, res) => {
     res.status(404).send({msg: 'path not found'});
 })
-app.use((err, req, res, next) => {
-      res.status(err.status).send({msg: err.msg})
-})
+app.use(handleCustomErrors)
+app.use(handle500Errors)
 
 module.exports = app;
