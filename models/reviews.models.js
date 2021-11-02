@@ -38,7 +38,7 @@ exports.updateVotesByReviewId = (review_id, body) => {
     if (isNaN(Number(review_id))) {
         return Promise.reject({status: 404, msg: 'path not found'})
     }
-    if (Object.keys(body).length !== 1 || Object.keys(body)[0] !== 'inc_votes') {
+    if (Object.keys(body).length !== 1 || Object.keys(body)[0] !== 'inc_votes' || typeof body.inc_votes !== 'number') {
    
         return Promise.reject({status: 400, msg: 'Incorrect type of data'})
     }
