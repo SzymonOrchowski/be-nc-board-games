@@ -58,6 +58,7 @@ exports.updateVotesByReviewId = (review_id, body) => {
     })
     .then((currentVotesState) => {
         currentVotesState.votes += body.inc_votes
+        if (currentVotesState.votes < 0) currentVotesState.votes = 0;
         return db
         .query('UPDATE reviews SET votes = $2 WHERE review_id = $1 RETURNING *', [review_id, currentVotesState.votes])
         .then(({rows}) => {
@@ -65,4 +66,3 @@ exports.updateVotesByReviewId = (review_id, body) => {
         })
     })
 }
-

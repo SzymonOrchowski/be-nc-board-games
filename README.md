@@ -170,7 +170,7 @@ Request body accepts:
 
   `{ inc_votes : 1 }` would increment the current review's vote property by 1
 
-  `{ inc_votes : -100 }` would decrement the current review's vote property by 100
+  `{ inc_votes : -100 }` would decrement the current review's vote property by 100    ------------- QUESTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Responds with:
 

@@ -200,6 +200,15 @@ describe('All tests: ', () => {
                     expect(body.review.votes).toBeGreaterThanOrEqual(22);
                 })
             })
+            test('status:200, check if decrementing votes stops at 0', () => {
+                return request(app)
+                .patch('/api/reviews/2')
+                .send({ inc_votes: -222 })
+                .expect(200)
+                .then(({body}) => {
+                    expect(body.review.votes).toBe(0);
+                })
+            })
             test('status:400, responds with message "Incorrect type of data", when passed wrong type of data (key is not a inc_votes)', () => {
                 return request(app)
                 .patch('/api/reviews/2')
