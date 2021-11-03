@@ -84,16 +84,21 @@ exports.fetchReviews = (sort_by) => {
     `
     const queryValues = []
     if (sort_by !== undefined) {
+        console.log(sort_by)
         if (['owner', 'title', 'review_id', 'category', 'review_img_url', 'created_at', 'votes'].includes(sort_by)) {
             sortingQuery = 'reviews.' + sort_by
         } else if (['comment_count'].includes(sort_by)) {
             sortingQuery = sort_by
-        } else {
+        } else if ([''].includes(sort_by)) {
             sortingQuery = 'reviews.created_at'
-        }
-        queryStr += ` ORDER BY ${sortingQuery} DESC`
+        } else {
+            return Promise.reject({status: 400, msg: 'Wrong column name given as a sort_by query.'})
+        } 
+    } else {
+        sortingQuery = 'reviews.created_at'
     }
-    
+    queryStr += ` ORDER BY ${sortingQuery} DESC`
+
     return db
     .query(queryStr, queryValues)
     .then(({rows}) => {

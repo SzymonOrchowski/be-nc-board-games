@@ -304,6 +304,14 @@ describe('All tests: ', () => {
                     expect(reviewsArray).toBeSorted({key: 'comment_count', descending: true});
                 })
             })
+            test('status:400, responds with an error message if sort_by query is not a proper column name', () => {
+                return request(app)
+                .get('/api/reviews?sort_by=wrong_column_name')
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Wrong column name given as a sort_by query.');
+                })
+            })
         })
     })
 })
