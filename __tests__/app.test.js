@@ -4,6 +4,7 @@ const testData = require('../db/data/test-data/');
 const { seed } = require('../db/seeds/seed');
 const app = require('../app.js')
 
+
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
@@ -274,6 +275,15 @@ describe('All tests: ', () => {
                             comment_count: expect.any(Number)
                         })
                     })
+                })
+            })
+            test('status:200, responds with an array of object reviews sorted by passed guery', () => {
+                return request(app)
+                .get('/api/reviews?sort_by=title')
+                .expect(200)
+                .then(({body}) => {
+                    const reviewsArray = body.reviews
+                    expect(reviewsArray).toBeSorted({key: 'title'});
                 })
             })
         })

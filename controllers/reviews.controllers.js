@@ -19,8 +19,9 @@ exports.patchReviewById = (req, res, next) => {
     .catch(next)
 }
 
-exports.getReviews = (reg, res, next) => {
-    fetchReviews()
+exports.getReviews = (req, res, next) => {
+    const {sort_by} = req.query
+    fetchReviews(sort_by)
     .then((reviews) => {
         res.status(200).send({reviews})
     })

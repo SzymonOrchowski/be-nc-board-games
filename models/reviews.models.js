@@ -67,7 +67,7 @@ exports.updateVotesByReviewId = (review_id, body) => {
     })
 }
 
-exports.fetchReviews = () => {
+exports.fetchReviews = (sort_by) => {
     let queryStr = `
     SELECT
     reviews.owner,
@@ -80,9 +80,21 @@ exports.fetchReviews = () => {
     COUNT(comments.review_id) AS comment_count 
     FROM reviews
     LEFT JOIN comments ON reviews.review_id = comments.review_id
-    GROUP BY reviews.review_id;
+    GROUP BY reviews.review_id
     `
     const queryValues = []
+    if (sort_by !== undefined) {
+        if (['owner', 'title', 'review_id', 'category', 'review_img_url', 'created_at', 'votes'].includes(sort_by)) {
+            sortingQuery = 'reviews.' + sort_by
+        } else if (['comment_count'].includes(sort_by)) {
+            sortingQuery = 'comments.' + sort_by
+        } else {
+            sortingQuery = 'reviews.created_at'
+        }
+        console.log(sortingQuery)
+        queryStr += ` ORDER BY ${sortingQuery} ASC`
+    }
+    
     return db
     .query(queryStr, queryValues)
     .then(({rows}) => {
