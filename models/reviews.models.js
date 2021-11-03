@@ -67,7 +67,7 @@ exports.updateVotesByReviewId = (review_id, body) => {
     })
 }
 
-exports.fetchReviews = (sort_by) => {
+exports.fetchReviews = (sort_by, order) => {
     let queryStr = `
     SELECT
     reviews.owner,
@@ -84,7 +84,6 @@ exports.fetchReviews = (sort_by) => {
     `
     const queryValues = []
     if (sort_by !== undefined) {
-        console.log(sort_by)
         if (['owner', 'title', 'review_id', 'category', 'review_img_url', 'created_at', 'votes'].includes(sort_by)) {
             sortingQuery = 'reviews.' + sort_by
         } else if (['comment_count'].includes(sort_by)) {
@@ -97,7 +96,20 @@ exports.fetchReviews = (sort_by) => {
     } else {
         sortingQuery = 'reviews.created_at'
     }
-    queryStr += ` ORDER BY ${sortingQuery} DESC`
+
+    if (order !== undefined) {
+        if (order === 'asc') {
+            order = 'ASC'
+        } else if (order === 'desc') {
+            order = 'DESC'
+        } else {
+            return Promise.reject({status: 400, msg: "Unexpected order query detected. Only 'asc' or 'desc' are accepted."})
+        }
+    } else {
+        order = 'DESC'
+    }
+
+    queryStr += ` ORDER BY ${sortingQuery} ${order}`
 
     return db
     .query(queryStr, queryValues)

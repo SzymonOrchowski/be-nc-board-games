@@ -312,6 +312,25 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe('Wrong column name given as a sort_by query.');
                 })
             })
+            test('status:200, responds with an array of object reviews sorted in ascending way if order=asc query passed', () => {
+                return request(app)
+                .get('/api/reviews?sort_by=title&order=asc')
+                .expect(200)
+                .then(({body}) => {
+                    const reviewsArray = body.reviews
+                    expect(reviewsArray).toBeSorted({key: 'title'});
+                })
+            })
+            test('status:400, responds with an error message if order query is not asc or desc', () => {
+                return request(app)
+                .get('/api/reviews?sort_by=title&order=wrongOrderQuery')
+                .expect(400)
+                .then(({body}) => {
+                    const reviewsArray = body.reviews
+                    expect(body.msg).toBe("Unexpected order query detected. Only 'asc' or 'desc' are accepted.");
+                })
+            })
+            
         })
     })
 })
