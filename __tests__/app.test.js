@@ -277,13 +277,31 @@ describe('All tests: ', () => {
                     })
                 })
             })
-            test('status:200, responds with an array of object reviews sorted by passed guery', () => {
+            test('status:200, responds with an array of object reviews sorted by passed guery sort_by="column name"', () => {
                 return request(app)
                 .get('/api/reviews?sort_by=title')
                 .expect(200)
                 .then(({body}) => {
                     const reviewsArray = body.reviews
-                    expect(reviewsArray).toBeSorted({key: 'title'});
+                    expect(reviewsArray).toBeSorted({key: 'title', descending: true});
+                })
+            })
+            test('status:200, responds with an array of object reviews sorted by passed empty sort_by guery ', () => {
+                return request(app)
+                .get('/api/reviews?sort_by')
+                .expect(200)
+                .then(({body}) => {
+                    const reviewsArray = body.reviews
+                    expect(reviewsArray).toBeSorted({key: 'created_at', descending: true});
+                })
+            })
+            test('status:200, responds with an array of object reviews sorted by passed guery sort_by=comment_count', () => {
+                return request(app)
+                .get('/api/reviews?sort_by=comment_count')
+                .expect(200)
+                .then(({body}) => {
+                    const reviewsArray = body.reviews
+                    expect(reviewsArray).toBeSorted({key: 'comment_count', descending: true});
                 })
             })
         })

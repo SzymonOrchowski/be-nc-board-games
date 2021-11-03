@@ -87,12 +87,11 @@ exports.fetchReviews = (sort_by) => {
         if (['owner', 'title', 'review_id', 'category', 'review_img_url', 'created_at', 'votes'].includes(sort_by)) {
             sortingQuery = 'reviews.' + sort_by
         } else if (['comment_count'].includes(sort_by)) {
-            sortingQuery = 'comments.' + sort_by
+            sortingQuery = sort_by
         } else {
             sortingQuery = 'reviews.created_at'
         }
-        console.log(sortingQuery)
-        queryStr += ` ORDER BY ${sortingQuery} ASC`
+        queryStr += ` ORDER BY ${sortingQuery} DESC`
     }
     
     return db
