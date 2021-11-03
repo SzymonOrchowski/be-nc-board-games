@@ -256,14 +256,14 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe.only('GET /api/reviews', () => {
+        describe('GET /api/reviews', () => {
             test('status:200, responds with an array of object reviews', () => {
                 return request(app)
                 .get('/api/reviews')
                 .expect(200)
                 .then(({body}) => {
                     body.reviews.forEach(review => {
-                        expect.objectContaining(
+                        expect(review).toMatchObject(
                         {
                             owner: expect.any(String),
                             title: expect.any(String),
@@ -330,7 +330,34 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe("Unexpected order query detected. Only 'asc' or 'desc' are accepted.");
                 })
             })
-            
+            test('status:200, responds with an array of object reviews sorted by passed empty sort_by guery ', () => {
+                return request(app)
+                .get(`/api/reviews?category=dexterity`)
+                .expect(200)
+                .then(({body}) => {
+                    body.reviews.forEach(review => {
+                        expect(review).toMatchObject(
+                        {
+                            owner: expect.any(String),
+                            title: expect.any(String),
+                            review_id: expect.any(Number),
+                            category: 'dexterity',
+                            review_img_url: expect.any(String),
+                            created_at: expect.any(String),
+                            votes: expect.any(Number),
+                            comment_count: expect.any(Number)
+                        })
+                    })
+                })
+            })
+            test('status:400, responds with an error message WRONG CATEGORY NAME', () => {
+                return request(app)
+                .get(`/api/reviews?category=wrongCategoryName`)
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe("Wrong category name!");
+                })
+            })
         })
     })
 })

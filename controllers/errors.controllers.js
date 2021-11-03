@@ -7,6 +7,7 @@ exports.handleCustomErrors = (err, req, res, next) => {
 }
 
 exports.handlePSQLErrors = (err, req, res, next) => {
+    console.log(err.code)
     if (err.code === '08P01') {
         res.status(500).send({msg: 'PSQL Error - 08P01 - protocol_violation'})
     } else {

@@ -1,5 +1,5 @@
 const db = require('../db')
-const { convertAllValuesToNumbers } = require('../utils/utils')
+const { convertAllValuesToNumbers, extractingValuesFromArrayOfObjects, insertIntoStringRightBeforeWord } = require('../utils/utils')
 
 exports.fetchReviewById = (review_id) => {
     if (isNaN(Number(review_id))) {
@@ -34,6 +34,7 @@ exports.fetchReviewById = (review_id) => {
     })   
 }
 
+
 exports.updateVotesByReviewId = (review_id, body) => {
     if (isNaN(Number(review_id))) {
         return Promise.reject({status: 404, msg: 'path not found'})
@@ -67,7 +68,8 @@ exports.updateVotesByReviewId = (review_id, body) => {
     })
 }
 
-exports.fetchReviews = (sort_by, order) => {
+
+exports.fetchReviews = (sort_by, order, category) => {
     let queryStr = `
     SELECT
     reviews.owner,
@@ -77,12 +79,13 @@ exports.fetchReviews = (sort_by, order) => {
     reviews.review_img_url,
     reviews.created_at,
     reviews.votes,
-    COUNT(comments.review_id) AS comment_count 
+    CAST(COUNT(comments.review_id) AS INTEGER) AS comment_count
     FROM reviews
     LEFT JOIN comments ON reviews.review_id = comments.review_id
     GROUP BY reviews.review_id
     `
     const queryValues = []
+
     if (sort_by !== undefined) {
         if (['owner', 'title', 'review_id', 'category', 'review_img_url', 'created_at', 'votes'].includes(sort_by)) {
             sortingQuery = 'reviews.' + sort_by
@@ -111,9 +114,41 @@ exports.fetchReviews = (sort_by, order) => {
 
     queryStr += ` ORDER BY ${sortingQuery} ${order}`
 
-    return db
-    .query(queryStr, queryValues)
-    .then(({rows}) => {
+    if (category !== undefined) {
+        return db
+        .query('SELECT slug FROM categories')
+        .then(({rows}) => {
+            return possibleCategories = extractingValuesFromArrayOfObjects(rows)
+        })
+        .then((possibleCategories) => {
+            if (possibleCategories.includes(category)) {
+                
+                queryValues.push(category)
+                const queryToInsert = `WHERE reviews.category = $1`
+                const newQuery = insertIntoStringRightBeforeWord(queryStr, queryToInsert, 'GROUP')
+        
+                return db
+                .query(newQuery, queryValues)
+                .then(({rows}) => {
+                return rows
+                })
+
+            } else {
+
+                return Promise.reject({status: 400, msg: "Wrong category name!"})
+
+            }
+        })
+        
+    } else {
+        return db
+        .query(queryStr, queryValues)
+        .then(({rows}) => {
         return rows
-    })
+        })
+    }
+
+    
+
+    
 }
