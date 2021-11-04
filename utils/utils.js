@@ -31,7 +31,6 @@ function convertUnderscoreToSpace(string) {
     let newString = ''
     for (let i = 0; i < string.length; i++) {
         if (string[i] === '_') {
-            console.log("underscore")
             newString += ' '
         } else {
             newString += string[i]

@@ -73,7 +73,6 @@ exports.updateVotesByReviewId = (review_id, body) => {
     })
 }
 
-
 exports.fetchReviews = (sort_by, order, category) => {
     let queryStr = `
     SELECT

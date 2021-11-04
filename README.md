@@ -198,7 +198,7 @@ Should accept queries:
 - `order`, which can be set to `asc` or `desc` for ascending or descending (defaults to descending)
 - `category`, which filters the reviews by the category value specified in the query
 
----
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### **GET /api/reviews/:review_id/comments**
 
