@@ -30,5 +30,65 @@
         }
       ]
     }
+  },
+  "GET /api/reviews/:review_id": {
+    "description": "serves an review object",
+    "queries": [],
+    "exampleResponse": {
+      "categories": [
+        {
+          "description": "",
+          "slug": ""
+        }
+      ]
+    }
+  },
+  "PATCH /api/reviews/:review_id": {
+    "description": "",
+    "queries": [],
+    "exampleResponse": {
+      "categories": [
+        {
+          "description": "",
+          "slug": "Social deduction"
+        }
+      ]
+    }
+  },
+  "GET /api/reviews/:review_id/comments": {
+    "description": "",
+    "queries": [],
+    "exampleResponse": {
+      "categories": [
+        {
+          "description": "Players attempt to uncover each other's hidden role",
+          "slug": "Social deduction"
+        }
+      ]
+    }
+  },
+  "POST /api/reviews/:review_id/comments": {
+    "description": "",
+    "queries": [],
+    "exampleResponse": {
+      "categories": [
+        {
+          "description": "Players attempt to uncover each other's hidden role",
+          "slug": "Social deduction"
+        }
+      ]
+    }
+  },
+  "DELETE /api/comments/:comment_id": {
+    "description": "",
+    "queries": [],
+    "exampleResponse": {
+      "categories": [
+        {
+          "description": "Players attempt to uncover each other's hidden role",
+          "slug": "Social deduction"
+        }
+      ]
+    }
   }
 }

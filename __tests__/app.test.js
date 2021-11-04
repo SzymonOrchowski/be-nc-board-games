@@ -463,5 +463,30 @@ describe('All tests: ', () => {
                 })
             })
         })
+        describe('DELETE /api/comments/:comment_id', () => {
+            test('status:204, and no content', () => {
+                return request(app)
+                .delete('/api/comments/1')
+                .expect(204)
+            })
+            test('status:400, and error massage when comment_id is not a number', () => {
+                return request(app)
+                .delete('/api/comments/notNumber')
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Comment_id is not a number')
+                })
+            })
+        })
+        describe('GET /api', () => {
+            test('status:200, and JSON describing all available endpoints', () => {
+                return request(app)
+                .get('/api')
+                .expect(200)
+                .then(({body})=>{
+                    expect(Object.keys(body).length).toBeGreaterThan(0)
+                })
+            })
+        })
     })
 })

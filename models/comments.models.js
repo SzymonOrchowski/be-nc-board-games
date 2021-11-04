@@ -36,3 +36,17 @@ exports.addNewCommentToReviewId = (review_id, body) => {
     })
     
 }
+
+exports.removeCommentById = (comment_id) => {
+    if (isNaN(Number(comment_id))) {
+        return Promise.reject({status: 400, msg: 'Comment_id is not a number'})
+    }
+
+    return db
+    .query(`
+    DELETE FROM comments WHERE comment_id = $1
+    `, [comment_id])
+    .then(() => {
+        return {status: 204}
+    })
+}
