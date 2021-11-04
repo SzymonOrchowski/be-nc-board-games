@@ -20,13 +20,14 @@
     "exampleResponse": {
       "reviews": [
         {
-          "title": "One Night Ultimate Werewolf",
-          "designer": "Akihisa Okui",
-          "owner": "happyamy2016",
-          "review_img_url": "https://images.pexels.com/photos/5350049/pexels-photo-5350049.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          "owner": "cooljmessy",
+          "title": "Velit tempor ullamco amet ipsum dolor voluptate.",
+          "review_id": 14,
           "category": "hidden-roles",
-          "created_at": 1610964101251,
-          "votes": 5
+          "review_img_url": "https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg",
+          "created_at": "2021-02-05T11:27:26.563Z",
+          "votes": 3,
+          "comment_count": 0
         }
       ]
     }
@@ -35,60 +36,82 @@
     "description": "serves an review object",
     "queries": [],
     "exampleResponse": {
-      "categories": [
+      "review": 
         {
-          "description": "",
-          "slug": ""
+          "review_id": 1,
+          "title": "Culture a Love of Agriculture With Agricola",
+          "review_body": "You could sum up Agricola with the simple phrase 'Farmyeard Fun' but the mechanics and game play add so much more than that. You'll find yourself torn between breeding pigs, or sowing crops. Its joyeous and rewarding and it makes you think of time spent outside, which is much harder to do these days!",
+          "designer": "Uwe Rosenberg",
+          "review_img_url": "https://images.pexels.com/photos/4917821/pexels-photo-4917821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          "votes": 1,
+          "category": "strategy",
+          "owner": "tickle122",
+          "created_at": "2021-01-18T10:00:20.514Z",
+          "comment_count": 3
         }
-      ]
     }
   },
   "PATCH /api/reviews/:review_id": {
-    "description": "",
+    "description": "updates review votes quantity (accepts positive and negative numbers to increment or decrement votes numbers) Lowest votes quantity is 0, returns update review object",
+    "form of input data": { "inc_votes": 1},
     "queries": [],
     "exampleResponse": {
-      "categories": [
-        {
-          "description": "",
-          "slug": "Social deduction"
-        }
-      ]
+      "review": {
+        "review_id": 1,
+        "title": "Culture a Love of Agriculture With Agricola",
+        "review_body": "You could sum up Agricola with the simple phrase 'Farmyeard Fun' but the mechanics and game play add so much more than that. You'll find yourself torn between breeding pigs, or sowing crops. Its joyeous and rewarding and it makes you think of time spent outside, which is much harder to do these days!",
+        "designer": "Uwe Rosenberg",
+        "review_img_url": "https://images.pexels.com/photos/4917821/pexels-photo-4917821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        "votes": 12,
+        "category": "strategy",
+        "owner": "tickle122",
+        "created_at": "2021-01-18T10:00:20.514Z"
+      }
     }
   },
   "GET /api/reviews/:review_id/comments": {
-    "description": "",
+    "description": "serves an array of all comments for specified review",
     "queries": [],
     "exampleResponse": {
-      "categories": [
+      "comments": [
         {
-          "description": "Players attempt to uncover each other's hidden role",
-          "slug": "Social deduction"
+          "comment_id": 59,
+          "votes": 3,
+          "created_at": "2021-03-27T19:48:58.110Z",
+          "author": "jessjelly",
+          "body": "Quis duis mollit ad enim deserunt."
+        },
+        {
+          "comment_id": 60,
+          "votes": 17,
+          "created_at": "2021-03-27T14:15:38.110Z",
+          "author": "cooljmessy",
+          "body": "Laboris nostrud ea ex occaecat aute quis consectetur anim."
         }
       ]
     }
   },
   "POST /api/reviews/:review_id/comments": {
-    "description": "",
+    "description": "let user add comment to specified review",
+    "form of input data": { "username": "J M", "body": "This one is really good!"},
     "queries": [],
     "exampleResponse": {
-      "categories": [
-        {
-          "description": "Players attempt to uncover each other's hidden role",
-          "slug": "Social deduction"
-        }
-      ]
+      "comment": {
+        "comment_id": 63,
+        "author": "J M",
+        "review_id": 1,
+        "votes": 0,
+        "created_at": "2021-11-04T16:12:39.869Z",
+        "body": "This one is really good!"
+      }
     }
   },
   "DELETE /api/comments/:comment_id": {
-    "description": "",
+    "description": "let user delete comment of sepcified id",
     "queries": [],
     "exampleResponse": {
-      "categories": [
-        {
-          "description": "Players attempt to uncover each other's hidden role",
-          "slug": "Social deduction"
-        }
-      ]
+      "status": 204,
+      "body": "No body returned for response"
     }
   }
 }
