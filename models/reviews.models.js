@@ -130,6 +130,9 @@ exports.fetchReviews = (sort_by, order, category) => {
                 return db
                 .query(newQuery, queryValues)
                 .then(({rows}) => {
+                    if (rows.length === 0) {
+                        return Promise.reject({status: 200, msg: "Any reviews in that category!"})
+                    }
                 return rows
                 })
 
@@ -148,7 +151,4 @@ exports.fetchReviews = (sort_by, order, category) => {
         })
     }
 
-    
-
-    
 }

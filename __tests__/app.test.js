@@ -358,6 +358,14 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe("Wrong category name!");
                 })
             })
+            test('status:200, responds with an error message if proper category query passed but there is no reviews in that category in database', () => {
+                return request(app)
+                .get(`/api/reviews?category=children's games`)
+                .expect(200)
+                .then(({body}) => {
+                    expect(body.msg).toBe("Any reviews in that category!");
+                })
+            })
         })
     })
 })
