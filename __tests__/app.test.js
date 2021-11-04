@@ -429,8 +429,8 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe.only('POST /api/reviews/:review_id/comments', () => {
-            test('status: 200, responds with posted comment', () => {
+        describe('POST /api/reviews/:review_id/comments', () => {
+            test('status: 201, responds with posted comment', () => {
                 const newComment = {
                     username: "John Malkovich",
                     body: "This one is like me!"
@@ -447,6 +447,19 @@ describe('All tests: ', () => {
                         review_id: expect.any(Number),
                         created_at: expect.any(String),
                       })
+                })
+            })
+            test('status: 400, responds with error message if review_id is not a number', () => {
+                const newComment = {
+                    username: "John Malkovich",
+                    body: "This one is like me!"
+                }
+                return request(app)
+                .post('/api/reviews/notANumber/comments')
+                .send(newComment)
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Review_id is not a number')
                 })
             })
         })
