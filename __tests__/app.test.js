@@ -387,7 +387,7 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe.only('GET /api/reviews/:review_id/comments', () => {
+        describe('GET /api/reviews/:review_id/comments', () => {
             test('status: 200, responds with an array of comments for the the given review_id', () => {
                 return request(app)
                 .get('/api/reviews/2/comments')
@@ -426,6 +426,27 @@ describe('All tests: ', () => {
                 .expect(200)
                 .then(({body}) => {
                     expect(body.msg).toBe('No comments for that review_id')
+                })
+            })
+        })
+        describe.only('POST /api/reviews/:review_id/comments', () => {
+            test('status: 200, responds with posted comment', () => {
+                const newComment = {
+                    username: "John Malkovich",
+                    body: "This one is like me!"
+                }
+                return request(app)
+                .post('/api/reviews/3/comments')
+                .send(newComment)
+                .expect(201)
+                .then(({body}) => {
+                    expect(body.comment).toMatchObject({
+                        body: "This one is like me!",
+                        votes: expect.any(Number),
+                        author: "John Malkovich",
+                        review_id: expect.any(Number),
+                        created_at: expect.any(String),
+                      })
                 })
             })
         })

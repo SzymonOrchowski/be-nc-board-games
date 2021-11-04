@@ -24,8 +24,8 @@ const seed = (data) => {
     .then(()=>{
       return db.query(`CREATE TABLE users (
         username VARCHAR NOT NULL UNIQUE PRIMARY KEY,
-        avatar_url VARCHAR NOT NULL,
-        name VARCHAR NOT NULL
+        avatar_url VARCHAR,
+        name VARCHAR
       );`)
     })
     .then(()=>{
