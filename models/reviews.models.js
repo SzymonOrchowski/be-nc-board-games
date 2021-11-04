@@ -1,5 +1,10 @@
 const db = require('../db')
-const { convertAllValuesToNumbers, extractingValuesFromArrayOfObjects, insertIntoStringRightBeforeWord } = require('../utils/utils')
+const { 
+    convertAllValuesToNumbers, 
+    extractingValuesFromArrayOfObjects, 
+    insertIntoStringRightBeforeWord,
+    convertUnderscoreToSpace
+ } = require('../utils/utils')
 
 exports.fetchReviewById = (review_id) => {
     if (isNaN(Number(review_id))) {
@@ -115,15 +120,17 @@ exports.fetchReviews = (sort_by, order, category) => {
     queryStr += ` ORDER BY ${sortingQuery} ${order}`
 
     if (category !== undefined) {
+        const categoryName = convertUnderscoreToSpace(category);
+
         return db
         .query('SELECT slug FROM categories')
         .then(({rows}) => {
             return possibleCategories = extractingValuesFromArrayOfObjects(rows)
         })
         .then((possibleCategories) => {
-            if (possibleCategories.includes(category)) {
+            if (possibleCategories.includes(categoryName)) {
                 
-                queryValues.push(category)
+                queryValues.push(categoryName)
                 const queryToInsert = `WHERE reviews.category = $1`
                 const newQuery = insertIntoStringRightBeforeWord(queryStr, queryToInsert, 'GROUP')
         

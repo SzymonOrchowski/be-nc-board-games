@@ -330,7 +330,7 @@ describe('All tests: ', () => {
                     expect(body.msg).toBe("Unexpected order query detected. Only 'asc' or 'desc' are accepted.");
                 })
             })
-            test('status:200, responds with an array of object reviews sorted by passed empty sort_by guery ', () => {
+            test('status:200, responds with an array of object reviews of given category ', () => {
                 return request(app)
                 .get(`/api/reviews?category=dexterity`)
                 .expect(200)
@@ -364,6 +364,26 @@ describe('All tests: ', () => {
                 .expect(200)
                 .then(({body}) => {
                     expect(body.msg).toBe("Any reviews in that category!");
+                })
+            })
+            test('status:200, responds with an array of object from category which name consist at least to words seprated by underscore in given query', () => {
+                return request(app)
+                .get(`/api/reviews?category=social_deduction`)
+                .expect(200)
+                .then(({body}) => {
+                    body.reviews.forEach(review => {
+                        expect(review).toMatchObject(
+                        {
+                            owner: expect.any(String),
+                            title: expect.any(String),
+                            review_id: expect.any(Number),
+                            category: 'social deduction',
+                            review_img_url: expect.any(String),
+                            created_at: expect.any(String),
+                            votes: expect.any(Number),
+                            comment_count: expect.any(Number)
+                        })
+                    })
                 })
             })
         })
