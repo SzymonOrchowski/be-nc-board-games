@@ -390,7 +390,7 @@ describe('All tests: ', () => {
         describe.only('GET /api/reviews/:review_id/comments', () => {
             test('status: 200, responds with an array of comments for the the given review_id', () => {
                 return request(app)
-                .get('/api/reviews/1/comments')
+                .get('/api/reviews/2/comments')
                 .expect(200)
                 .then(({body}) => {
                     body.comments.forEach(comment => {
@@ -402,6 +402,30 @@ describe('All tests: ', () => {
                             body: expect.any(String),
                         })
                     })
+                })
+            })
+            test('status: 400, responds with error msg when review_id is not a number', () => {
+                return request(app)
+                .get('/api/reviews/notNumber/comments')
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Review_id is not a number')
+                })
+            })
+            test('status: 400, responds with error msg when review_id is not a number', () => {
+                return request(app)
+                .get('/api/reviews/notNumber/comments')
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Review_id is not a number')
+                })
+            })
+            test(`status: 200, responds with message 'No comments for that review_id'`, () => {
+                return request(app)
+                .get('/api/reviews/99999/comments')
+                .expect(200)
+                .then(({body}) => {
+                    expect(body.msg).toBe('No comments for that review_id')
                 })
             })
         })
