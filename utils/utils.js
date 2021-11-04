@@ -27,4 +27,22 @@ function insertIntoStringRightBeforeWord(string, stringToInsert, word) {
     return string.slice(0, indexToSlice-1) + ' ' + stringToInsert + ' ' + string.slice(indexToSlice)
 }
 
-module.exports = { convertAllValuesToNumbers, extractingValuesFromArrayOfObjects, insertIntoStringRightBeforeWord }
+function convertUnderscoreToSpace(string) {
+    let newString = ''
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] === '_') {
+            console.log("underscore")
+            newString += ' '
+        } else {
+            newString += string[i]
+        }
+    }
+    return newString;
+}
+
+module.exports = { 
+    convertAllValuesToNumbers, 
+    extractingValuesFromArrayOfObjects, 
+    insertIntoStringRightBeforeWord,
+    convertUnderscoreToSpace 
+}

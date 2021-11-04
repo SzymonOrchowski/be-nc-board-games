@@ -1,4 +1,9 @@
-const { convertAllValuesToNumbers, extractingValuesFromArrayOfObjects, insertIntoStringRightBeforeWord } = require('../utils/utils')
+const { 
+    convertAllValuesToNumbers, 
+    extractingValuesFromArrayOfObjects, 
+    insertIntoStringRightBeforeWord,
+    convertUnderscoreToSpace 
+} = require('../utils/utils')
 
 describe('All utils tests:', () => {
     describe('convertAllValuesToNumbers', () => {
@@ -37,6 +42,14 @@ describe('All utils tests:', () => {
             const expectedString = 
             `SELECT reviews.owner, reviews.title, reviews.review_id, reviews.category, reviews.review_img_url, reviews.created_at, reviews.votes COUNT(comments.review_id) AS comment_count FROM reviews LEFT JOIN comments ON reviews.review_id = comments.review_id WHERE reviews.category = $1 GROUP BY reviews.review_id`
             expect(insertIntoStringRightBeforeWord(string, stringToInsert, word)).toEqual(expectedString)
+        })
+    })
+    describe('convertUnderscoreToSpace', () => {
+        it('return a string with underscore character changed into normal space', () => {
+            expect(convertUnderscoreToSpace('aaa_bbb')).toBe('aaa bbb')
+        })
+        it('return a string with underscores characters changed into normal spaces', () => {
+            expect(convertUnderscoreToSpace('aaa_bbb_ccc_4_hjklhjkl')).toBe('aaa bbb ccc 4 hjklhjkl')
         })
     })
 })
