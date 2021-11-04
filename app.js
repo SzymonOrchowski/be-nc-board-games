@@ -11,6 +11,7 @@ app.use('/api', apiRouter);
 app.all('/*', (req, res) => {
     res.status(404).send({msg: 'path not found'});
 })
+
 app.use(handleCustomErrors)
 app.use(handlePSQLErrors)
 app.use(handle500Errors)
