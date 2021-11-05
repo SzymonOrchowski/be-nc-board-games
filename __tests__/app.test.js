@@ -503,7 +503,7 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe.only('GET /api/users/:username', () => {
+        describe('GET /api/users/:username', () => {
             test('status:200, and user object having properties username, avatr_url, name', () => {
                 return request(app)
                 .get('/api/users/bainesface')
@@ -523,6 +523,53 @@ describe('All tests: ', () => {
                 .expect(404)
                 .then(({body})=>{
                     expect(body.msg).toBe('No such username in database')
+                })
+            })
+        })
+        describe('PATCH /api/comments/:comment_id', () => {
+            test('status:200, responds with a object of updated comment', () => {
+                return request(app)
+                .patch('/api/comments/5')
+                .send({ inc_votes: 22 })
+                .expect(200)
+                .then(({body}) => {
+                    expect(body.comment).toMatchObject(
+                        {
+                            body: expect.any(String),
+                            votes: expect.any(Number),
+                            author: expect.any(String),
+                            review_id: expect.any(Number),
+                            created_at: expect.any(String),
+                          }
+                    )
+                    expect(body.comment.votes).toBeGreaterThanOrEqual(22);
+                })
+            })
+            test('status:400, responds with an error \'Incorrect type of data\'', () => {
+                return request(app)
+                .patch('/api/comments/5')
+                .send({ inc: 22 })
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Incorrect type of data')
+                })
+            })
+            test('status:400, responds with an error \'Incorrect type of data\'', () => {
+                return request(app)
+                .patch('/api/comments/5')
+                .send({ inc_votes: 'notNumber' })
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Incorrect type of data')
+                })
+            })
+            test('status:400, responds with an error \'Comment_id is not a number\'', () => {
+                return request(app)
+                .patch('/api/comments/notNumber')
+                .send({ inc_votes: 22 })
+                .expect(400)
+                .then(({body}) => {
+                    expect(body.msg).toBe('Comment_id is not a number')
                 })
             })
         })

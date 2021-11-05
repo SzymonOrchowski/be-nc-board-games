@@ -64,3 +64,17 @@ exports.removeCommentById = (comment_id) => {
         return {status: 204}
     })
 }
+
+exports.updateVotesByCommentId = (comment_id, body) => {
+    if (isNaN(Number(comment_id))) {
+        return Promise.reject({status: 400, msg: 'Comment_id is not a number'})
+    }
+    if (Object.keys(body).length !== 1 || Object.keys(body)[0] !== 'inc_votes' || typeof body.inc_votes !== 'number') {
+        return Promise.reject({status: 400, msg: 'Incorrect type of data'})
+    }
+    return db
+    .query('UPDATE comments SET votes = votes + $1 WHERE comment_id = $2 RETURNING *', [body.inc_votes, comment_id])
+    .then(({rows}) => {
+        return rows[0]
+    })
+}
