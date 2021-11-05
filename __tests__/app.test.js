@@ -517,6 +517,14 @@ describe('All tests: ', () => {
                    
                 })
             })
+            test('status:404, and error massage', () => {
+                return request(app)
+                .get('/api/users/notExistingUsername')
+                .expect(404)
+                .then(({body})=>{
+                    expect(body.msg).toBe('No such username in database')
+                })
+            })
         })
     })
 })
