@@ -488,13 +488,18 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe('GET /api/users', () => {
+        describe.only('GET /api/users', () => {
             test('status:200, and array of usernames', () => {
                 return request(app)
                 .get('/api/users')
                 .expect(200)
                 .then(({body})=>{
                     expect(body.users.length).toBeGreaterThan(0)
+                    body.users.forEach(userObj => {
+                        expect(userObj).toMatchObject({
+                            username: expect.any(String)
+                        })
+                    })
                 })
             })
         })
