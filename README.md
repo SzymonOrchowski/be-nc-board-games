@@ -9,13 +9,13 @@ Created and tested using Node.js v16.9.1 and PostgreSQL 13.4.
 
 
 
-
-
 ## 🔗 Links
 
 https://board-games-information-place.herokuapp.com/api
 
 https://github.com/SzymonOrchowski/be-nc-games
+
+
 
 
 ## Instructions to setup the project
@@ -57,6 +57,9 @@ Finally you can run the test suite:
 ```http
 npm test app
 ```
+
+
+
 ## API Reference
 
 #### Get all available endpoints information
