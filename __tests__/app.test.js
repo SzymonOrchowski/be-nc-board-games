@@ -488,7 +488,7 @@ describe('All tests: ', () => {
                 })
             })
         })
-        describe.only('GET /api/users', () => {
+        describe('GET /api/users', () => {
             test('status:200, and array of usernames', () => {
                 return request(app)
                 .get('/api/users')
@@ -500,6 +500,21 @@ describe('All tests: ', () => {
                             username: expect.any(String)
                         })
                     })
+                })
+            })
+        })
+        describe.only('GET /api/users/:username', () => {
+            test('status:200, and user object having properties username, avatr_url, name', () => {
+                return request(app)
+                .get('/api/users/bainesface')
+                .expect(200)
+                .then(({body})=>{
+                    expect(body.user).toMatchObject({
+                        username: expect.any(String),
+                        avatar_url: expect.any(String),
+                        name: expect.any(String)
+                    })
+                   
                 })
             })
         })
