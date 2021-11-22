@@ -1,5 +1,5 @@
 const db = require('../db')
-const { extractingValuesFromArrayOfObjects } = require('../utils/utils')
+const { extractValuesFromArrayOfObjects } = require('../utils/utils')
 
 exports.fetchCommentsByReviewId = (review_id) => {
     if (isNaN(Number(review_id))) {
@@ -25,7 +25,7 @@ exports.addNewCommentToReviewId = (review_id, body) => {
     }
 
     return db.query('SELECT username FROM users').then(({rows}) => {
-        const usernames = extractingValuesFromArrayOfObjects(Object.values(rows))
+        const usernames = extractValuesFromArrayOfObjects(Object.values(rows))
         if (!usernames.includes(body.username)) {
             return db
             .query(`
@@ -61,7 +61,7 @@ exports.removeCommentById = (comment_id) => {
     DELETE FROM comments WHERE comment_id = $1
     `, [comment_id])
     .then(() => {
-        return {status: 204}
+        return 204
     })
 }
 

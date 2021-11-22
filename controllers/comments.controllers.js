@@ -22,8 +22,8 @@ exports.postNewCommentToReviewId = (req, res, next) => {
 exports.deleteCommentById = (req, res, next) => {
     const {comment_id} = req.params
     removeCommentById(comment_id)
-    .then((response) => {
-        res.sendStatus(response.status)
+    .then((status) => {
+        res.sendStatus(status)
     })
     .catch(next)
 }

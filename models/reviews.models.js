@@ -1,7 +1,7 @@
 const db = require('../db')
 const { 
     convertAllValuesToNumbers, 
-    extractingValuesFromArrayOfObjects, 
+    extractValuesFromArrayOfObjects, 
     insertIntoStringRightBeforeWord,
     convertUnderscoreToSpace
  } = require('../utils/utils')
@@ -124,7 +124,7 @@ exports.fetchReviews = (sort_by, order, category) => {
         return db
         .query('SELECT slug FROM categories')
         .then(({rows}) => {
-            return possibleCategories = extractingValuesFromArrayOfObjects(rows)
+            return possibleCategories = extractValuesFromArrayOfObjects(rows)
         })
         .then((possibleCategories) => {
             if (possibleCategories.includes(categoryName)) {

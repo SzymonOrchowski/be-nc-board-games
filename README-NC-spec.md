@@ -211,7 +211,6 @@ Responds with:
   - `author` which is the `username` from the users table
   - `body`
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### **POST /api/reviews/:review_id/comments**
 
@@ -261,6 +260,7 @@ Responds with:
 **Remember that this README is targetted at people who will come to your repo (potentially from your CV or portfolio website) and want to see what you have created, and try it out for themselves(not _just_ to look at your code!). So it is really important to include a link to the hosted version, as well as implement the above `GET /api` endpoint so that it is clear what your api does.**
 
 ---
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Further Routes
 
@@ -270,7 +270,7 @@ Responds with:
 
 - an array of objects, each object should have the following property:
   - `username`
-
+  
 ---
 
 #### **GET /api/users/:username**

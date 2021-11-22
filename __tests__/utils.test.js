@@ -1,6 +1,6 @@
 const { 
     convertAllValuesToNumbers, 
-    extractingValuesFromArrayOfObjects, 
+    extractValuesFromArrayOfObjects, 
     insertIntoStringRightBeforeWord,
     convertUnderscoreToSpace 
 } = require('../utils/utils')
@@ -21,7 +21,7 @@ describe('All utils tests:', () => {
             expect(convertAllValuesToNumbers(object)).toEqual(expectedObject)
         })
     })
-    describe('extractingValuesFromArrayOfObjects', () => {
+    describe('extractValuesFromArrayOfObjects', () => {
         it('return array of values extracted from an objects', () => {
             const array = [
                 { slug: 'euro game' },
@@ -30,7 +30,7 @@ describe('All utils tests:', () => {
                 { slug: "children's games" }
               ]
             const expectedArray = ['euro game', 'social deduction', 'dexterity', "children's games"]
-            expect(extractingValuesFromArrayOfObjects(array)).toEqual(expectedArray)
+            expect(extractValuesFromArrayOfObjects(array)).toEqual(expectedArray)
         })
     })
     describe('insertIntoStringRightBeforeWord', () => {

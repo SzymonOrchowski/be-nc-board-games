@@ -7,7 +7,7 @@ function convertAllValuesToNumbers(obj) {
     return newObj
 }
 
-function extractingValuesFromArrayOfObjects(array) {
+function extractValuesFromArrayOfObjects(array) {
     const newArray = []
     array.forEach(object => {newArray.push(Object.values(object))})
    return newArray.flat()
@@ -41,7 +41,7 @@ function convertUnderscoreToSpace(string) {
 
 module.exports = { 
     convertAllValuesToNumbers, 
-    extractingValuesFromArrayOfObjects, 
+    extractValuesFromArrayOfObjects, 
     insertIntoStringRightBeforeWord,
     convertUnderscoreToSpace 
 }
