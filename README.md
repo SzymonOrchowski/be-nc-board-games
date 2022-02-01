@@ -6,79 +6,58 @@ It responds for specific requests and provides information to the front end arch
 
 Created and tested using Node.js v16.9.1 and PostgreSQL 13.4.
 
-
-
-
-## 🔗 Links
+## You can find a hosted version here:
 
 https://board-games-information-place.herokuapp.com/api
 
-https://github.com/SzymonOrchowski/be-nc-games
-
-
-
-
 ## Instructions to setup the project
 
-To check functionality of that API you can use the first link from aboves.
+#### Minimum setup requirements:
 
+Node.js v16.9.1<br/>
+PostgreSQL 12.8
+
+To check functionality of that API you can use the first link from aboves.
 To check the code feel free to clone that repository from my github. Just fork it first, and clone it to your computer using: 
 
-```http
-git clone URL_TO_YOUR_FORKED_GITHUB_REPOSITORY
-```
+> git clone URL_TO_YOUR_FORKED_GITHUB_REPOSITORY
 
 After successful cloning, you have to install all dependencies by:
 
-```http
-npm install
-```
+> npm install
 
 You also need to setup data base by running script setup-dbs:
 
-```http
-npm run setup-dbs
-```
+> npm run setup-dbs
 
 The last thing you will need to run tests is to create two files with environment variables (be careful and not add any semicolons at the end of each of the files!):
 
 
-```http
-1st FILE NAME: .env.test
-1st FILE BODY: PGDATABASE=nc_games_test
+> 1st FILE NAME: .env.test
+> 1st FILE BODY: PGDATABASE=nc_games_test
 
-2nd FILE NAME: .env.dev
-2nd FILE BODY: PGDATABASE=nc_games
+> 2nd FILE NAME: .env.dev
+> 2nd FILE BODY: PGDATABASE=nc_games
 
-```
 
 Finally you can run the test suite:
 
-```http
-npm test app
-```
-
+> npm test app
 
 
 ## API Reference
 
 #### Get all available endpoints information
 
-```http
-  GET /api/
-```
+>  GET /api/
 
 #### Get all game categories
 
-```http
-  GET /api/categories
-```
+>  GET /api/categories
 
 #### Get all game reviews
 
-```http
-  GET /api/reviews
-```
+>  GET /api/reviews
 
 |  Queries  |   Type   | Description                                                                             |
 | :-------- | :------- | :-------------------------------------------------------------------------------------- |
@@ -88,9 +67,7 @@ npm test app
 
 #### Get review by specified review_id
 
-```http
-  GET /api/reviews/:review_id
-```
+>  GET /api/reviews/:review_id
 
 |  Parameter | Type     | Description                         |
 | :--------- | :------- | :---------------------------------- |
@@ -98,9 +75,7 @@ npm test app
 
 #### Update votes of review by specified review_id
 
-```http
-  PATCH /api/reviews/:review_id
-```
+>  PATCH /api/reviews/:review_id
 
 |  Parameter | Type     | Description                         |
 | :--------- | :------- | :---------------------------------- |
@@ -112,9 +87,7 @@ npm test app
 
 #### Get all comments for specified review
 
-```http
-  GET /api/reviews/:review_id/comments
-```
+>  GET /api/reviews/:review_id/comments
 
 |  Parameter | Type     | Description                                     |
 | :--------- | :------- | :---------------------------------------------- |
@@ -122,9 +95,7 @@ npm test app
 
 #### Post comment for specified review
 
-```http
-  POST /api/reviews/:review_id/comments
-```
+>  POST /api/reviews/:review_id/comments
 
 |  Parameter | Type     | Description                                  |
 | :--------- | :------- | :------------------------------------------- |
@@ -136,9 +107,7 @@ npm test app
 
 #### Delete comment by comment_id
 
-```http
-  DELETE /api/comments/:comment_id
-```
+>  DELETE /api/comments/:comment_id
 
 |  Parameter  |   Type   | Description                           |
 | :---------- | :------- | :------------------------------------ |
