@@ -1,5 +1,5 @@
 
-# House of Games API
+<h1>House of Games API</h1>
 
 This is a an API for backend service dedicated to PSQL database.
 It responds for specific requests and provides information to the front end architecture.
@@ -10,7 +10,7 @@ Created and tested using Node.js v16.9.1 and PostgreSQL 13.4.
 
 https://board-games-information-place.herokuapp.com/api
 
-## Instructions to setup the project
+## How to setup the project
 
 #### Minimum setup requirements:
 
